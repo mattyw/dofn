@@ -4,9 +4,9 @@ import Test.HUnit
 
 import Backend.Backend
 
-test1 = TestCase do
-    x <- foobar 2
-    assertEqual 4 x
+test1 = TestCase (do
+		assertEqual "3+1 is 4" 4 $ foobar 2)
 
 
-tests = [test1]
+tests = [TestLabel "test1" test1
+	]
