@@ -1,14 +1,15 @@
 module Main where
 
 import Test.HUnit
+import System.Exit
+import Control.Monad
 
 import BackendTests
 
 allTests :: Test
-allTests = "alltests" ~: [BackendTests.tests]
+allTests = "alltests" ~: BackendTests.tests
 
-main :: IO()
 main = do
 	counts <- runTestTT allTests
-	putStrLn $ showCounts counts
-
+	when (failures counts > 0 || errors counts > 0)
+		exitFailure
