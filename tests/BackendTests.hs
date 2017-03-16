@@ -4,8 +4,22 @@ import Test.HUnit
 
 import Backend.Backend
 
-test1 = TestCase (do
-		assertEqual "3+1 is 4" 4 $ foobar 2)
+stringNote :: String
+stringNote = "example title\n\
+\body of the note\n\
+\which might span multiple\n\
+\lines.\n\
+\"
 
-tests = [TestLabel "test1" test1
+exampleNote :: Note
+exampleNote = Note "example title" "body of the note\nwhich might span multiple\nlines.\n" []
+
+testMarshal = TestCase (do
+		assertEqual "note is marshalled correctly" exampleNote $ marshalNote stringNote)
+
+testUnMarshal = TestCase (do
+		assertEqual "note is unmarshalled correctly" stringNote $ unmarshalNote exampleNote)
+
+tests = [TestLabel "test marshalling" testMarshal
+        ,TestLabel "test unmarshalling" testUnMarshal
 	]
