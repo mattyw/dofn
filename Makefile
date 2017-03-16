@@ -1,6 +1,6 @@
 test:
 	cabal configure --enable-tests
-	cabal build -v
+	cabal build
 	cabal test
 .PHONY: test 
 

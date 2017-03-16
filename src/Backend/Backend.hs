@@ -18,3 +18,15 @@ newNote (x:xs) = Note x (unlines xs) []
 
 unmarshalNote :: Note -> String
 unmarshalNote (Note t b _) = t ++ "\n" ++ b
+
+fromFile :: FilePath -> IO Note
+fromFile filename = do
+    f <- readFile filename
+    return (marshalNote f)
+
+toFile :: FilePath -> Note -> IO ()
+toFile filename note = do
+    writeFile filename $ unmarshalNote note
+
+loadNotes :: FilePath -> [Note]
+loadNotes = undefined
