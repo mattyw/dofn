@@ -1,6 +1,7 @@
 module Backend.Backend where
 
 import Data.String
+import System.Directory
 
 data Note = 
     Note { title :: String
@@ -28,5 +29,12 @@ toFile :: FilePath -> Note -> IO ()
 toFile filename note = do
     writeFile filename $ unmarshalNote note
 
-loadNotes :: FilePath -> [Note]
-loadNotes = undefined
+loadNotes :: [FilePath] -> [IO Note]
+loadNotes [] = []
+loadNotes (x:[]) = [fromFile x]
+loadNotes (x:xs) = fromFile x : loadNotes xs
+
+loadDir :: FilePath -> IO [IO Note]
+loadDir fp = do
+    files <- getDirectoryContents fp 
+    return (loadNotes files)

@@ -31,3 +31,4 @@ library
   Exposed-Modules:     Backend.Backend
   hs-source-dirs:      src
   Build-depends:       base
+                       , directory ==1.2.7.*
