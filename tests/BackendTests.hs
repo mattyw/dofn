@@ -33,8 +33,13 @@ testNoteToFromFile = TestCase (do
         readNote <- fromFile "roundTrip"
         assertEqual "note read from file same as note written" exampleNote readNote)
 
+testDirToNotes = TestCase (do
+        notes <- loadDir "testNotes"
+        assertEqual "note read from file same as note written" [fromFile "testNotes/testNote1", fromFile "testNotes/testNote2"] notes)
+
 tests = [TestLabel "test marshalling" testMarshal
         ,TestLabel "test unmarshalling" testUnMarshal
         ,TestLabel "test note from file" testNoteFromFile
         ,TestLabel "test note roundtrip to file" testNoteToFromFile
+        ,TestLabel "test loading directory" testDirToNotes
 	]
